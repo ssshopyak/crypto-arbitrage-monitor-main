@@ -1,8 +1,5 @@
 export const COLUMS = [
     {
-        Header: 'Profit'
-    },
-    {
         Header: 'Symbol',
         accessor:'symbol'
     },

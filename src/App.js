@@ -14,13 +14,14 @@ const gateio = new ccxt.gateio({enableRateLimit: false, proxy: proxy, timeout: 3
 
 const App = () => {
     const stats = {
-        'BTC/USDT': {asks: [], bids: [], symbol: 'BTC/USDT'},
-        'ETH/USDT': {asks: [], bids: [], symbol: 'ETH/USDT'},
+        'BTC/USDT': {profit:0,asks: [], bids: [], symbol: 'BTC/USDT'},
+        'ETH/USDT': {profit:0,asks: [], bids: [], symbol: 'ETH/USDT'},
     };
     const [resBinance, setResBinance] = useState([]);
     const [resFTX, setResFTX] = useState([]);
     const [resMEXC, setResMEXC] = useState([]);
     const [resGateIo, setResGateIo] = useState([]);
+    const [procents, setProcents] = useState();
     const [data, setData] = useState([]);
     const [loadingGateIo, setLoadingGateIo] = useState(true);
     const [loadingBinance, setLoadingBinance] = useState(true);
@@ -94,6 +95,7 @@ const App = () => {
 
     useEffect(() => {
         if (!loadingBinance && !loadingFTX && !loadingMEXC && !loadingGateIo) {
+            
             [...resBinance, ...resFTX, ...resMEXC, ...resGateIo].forEach(el => {
                 stats[el.symbol].bids.push({data: el.bids, exchange: el.exchange});
                 stats[el.symbol].asks.push({data: el.asks, exchange: el.exchange});
@@ -103,8 +105,14 @@ const App = () => {
             console.log(Object.values(stats['BTC/USDT'].bids.sort((a, b) => (a.data[0] > b.data[0]) ? 1: -1)))
             console.log(Object.values(stats['ETH/USDT'].asks.sort((a, b) => (a.data[0] < b.data[0]) ? 1: -1)))
             console.log(Object.values(stats['ETH/USDT'].bids.sort((a, b) => (a.data[0] > b.data[0]) ? 1: -1)))
-
-            setData(Object.values(stats).sort())
+            const askspbtcusd = Object.values(stats['BTC/USDT'].asks[0].data[0])
+            const bidspbtcusd = Object.values(stats['BTC/USDT'].bids[0].data[0])
+            const asksprofit = askspbtcusd[0]
+            const bidsprofit = bidspbtcusd[0]
+            const profit = (asksprofit - bidsprofit)
+            const procentss = profit/bidsprofit * 100
+            setProcents(procentss.toFixed(2))
+            setData(Object.values(stats))
         }
     }, [loadingBinance, loadingFTX, loadingMEXC, loadingGateIo])
 
@@ -115,7 +123,7 @@ const App = () => {
             <div className="table-card mt-5">
                 <div className="table-card-body">
                     {loadingBinance || loadingFTX || loadingMEXC || loadingGateIo ? 'Loading...' : (
-                        <Table data={data}/>
+                        <Table data={data} procents={procents}/>
                     )}
                 </div>
             </div>
@@ -123,7 +131,7 @@ const App = () => {
     );
 }
 
-const Table = ({data}) => {
+const Table = ({data, procents}) => {
     const tableInstance = useTable({
         columns: COLUMS,
         data,
@@ -135,6 +143,7 @@ const Table = ({data}) => {
             {
                 headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getFooterGroupProps()}>
+                        <th>Profit</th>
                         {
                             headerGroup.headers.map(column => (
                                 <th {...column.getHeaderProps()}>{column.render('Header')}</th>
@@ -150,6 +159,7 @@ const Table = ({data}) => {
                     prepareRow(row)
                     return (
                         <tr className={"arbitrage-table-row"} {...row.getRowProps()}>
+                            <td>{procents}%</td>
                             {
                                 row.cells.map((cell) => {
                                     return (
