@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+* {
+  font-family: 'Poppins', serif;
+  font-size: 13px;
+}
+
+body {
+  background-color: #F3F6F9;
+}
+
+.table-card {
+  box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+  border: 0;
+  border-radius: 0.42rem;
+  background-color: #fff;
+}
+
+.table-card-body {
+  padding: 2rem 2.25rem;
+}
+
+.arbitrage-table {
+  width: 100%;
+}
+
+.arbitrage-table-row td {
+  border: 1px solid #EBEDF3;
+  padding: 0.75rem;
+}
+
+.arbitrage-table-header th {
+  font-weight: 500;
+  font-size: 1em;
+  padding: 0.75rem;
+}
