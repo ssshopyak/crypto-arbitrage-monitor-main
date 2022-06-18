@@ -1,5 +1,9 @@
 export const COLUMS = [
     {
+        Header: 'Profit',
+        accessor:'profit'
+    },
+    {
         Header: 'Symbol',
         accessor:'symbol'
     },
