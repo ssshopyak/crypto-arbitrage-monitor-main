@@ -7,4 +7,4 @@ Then start the app with `npm run start`
 
 ## Currently supports
 
-Bittrex, Binance, Coinbase, and Huobi
+Bittrex, Binance, GateIo, FTX, MAXE and Huobi
