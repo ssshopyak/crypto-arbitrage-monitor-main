@@ -12,6 +12,7 @@ const mexc = new ccxt.mexc({enableRateLimit: false, proxy: proxy, timeout: 50000
 const gateio = new ccxt.gateio({enableRateLimit: false, proxy: proxy, timeout: 50000})
 const okx = new ccxt.okx({enableRateLimit: false, proxy: proxy, timeout: 50000})
 const bitget = new ccxt.bitget({enableRateLimit: false, proxy: proxy, timeout: 50000})
+const huobi = new ccxt.huobi({enableRateLimit: false, proxy: proxy, timeout: 50000})
 
 
 
@@ -109,7 +110,9 @@ const App = () => {
     const [resGateIo, setResGateIo] = useState([])
     const [resOkx, setResOkx] = useState([])
     const [resBitget, setResBitget] = useState([])
+    const [resHuobi, setResHuobi] = useState([])
     const [data, setData] = useState([])
+    const [loadingHuobi, setLoadingHuobi] = useState(true)
     const [loadingBitget, setLoadingBitget] = useState(true)
     const [loadingOkx, setLoadingOkx] = useState(true)
     const [loadingGateIo, setLoadingGateIo] = useState(true)
@@ -293,6 +296,25 @@ const App = () => {
                 mexc.fetchOrderBook('CELO/USDT', 1),
                 mexc.fetchOrderBook('AXS/USDT', 1),
                 mexc.fetchOrderBook('CHZ/USDT', 1),
+                mexc.fetchOrderBook('ADA/USDT', 1),
+                mexc.fetchOrderBook('PEOPLE/USDT', 1),
+                mexc.fetchOrderBook('LPT/USDT', 1),
+                mexc.fetchOrderBook('BAT/USDT', 1),
+                mexc.fetchOrderBook('ATOM/USDT', 1),
+                mexc.fetchOrderBook('WOO/USDT', 1),
+                mexc.fetchOrderBook('SNX/USDT', 1),
+                mexc.fetchOrderBook('XTZ/USDT', 1),
+                mexc.fetchOrderBook('AVAX/USDT', 1),
+                mexc.fetchOrderBook('APE/USDT', 1),
+                mexc.fetchOrderBook('DOGE/USDT', 1),
+                mexc.fetchOrderBook('ZIL/USDT', 1),
+                mexc.fetchOrderBook('STORJ/USDT', 1),
+                mexc.fetchOrderBook('REN/USDT', 1),
+                mexc.fetchOrderBook('MASK/USDT', 1),
+                mexc.fetchOrderBook('ZRX/USDT', 1),
+                mexc.fetchOrderBook('ARPA/USDT', 1),
+                mexc.fetchOrderBook('NEAR/USDT', 1),
+                mexc.fetchOrderBook('GALA/USDT', 1),
 
 
             ])
@@ -371,7 +393,27 @@ const App = () => {
                 gateio.fetchOrderBook('CHZ/USDT', 1),
                 gateio.fetchOrderBook('DYDX/USDT', 1),
                 gateio.fetchOrderBook('ZEN/USDT', 1),
-
+                gateio.fetchOrderBook('ADA/USDT', 1),
+                gateio.fetchOrderBook('PEOPLE/USDT', 1),
+                gateio.fetchOrderBook('LPT/USDT', 1),
+                gateio.fetchOrderBook('BAT/USDT', 1),
+                gateio.fetchOrderBook('ATOM/USDT', 1),
+                gateio.fetchOrderBook('ENJ/USDT', 1),
+                gateio.fetchOrderBook('WOO/USDT', 1),
+                gateio.fetchOrderBook('SNX/USDT', 1),
+                gateio.fetchOrderBook('XTZ/USDT', 1),
+                gateio.fetchOrderBook('AVAX/USDT', 1),
+                gateio.fetchOrderBook('APE/USDT', 1),
+                gateio.fetchOrderBook('DOGE/USDT', 1),
+                gateio.fetchOrderBook('CVC/USDT', 1),
+                gateio.fetchOrderBook('ZIL/USDT', 1),
+                gateio.fetchOrderBook('STORJ/USDT', 1),
+                gateio.fetchOrderBook('REN/USDT', 1),
+                gateio.fetchOrderBook('MASK/USDT', 1),
+                gateio.fetchOrderBook('ZRX/USDT', 1),
+                gateio.fetchOrderBook('ARPA/USDT', 1),
+                gateio.fetchOrderBook('NEAR/USDT', 1),
+                gateio.fetchOrderBook('GALA/USDT', 1),
 
             ])
             await new Promise(resolve => setTimeout(resolve, 3000))
@@ -448,6 +490,25 @@ const App = () => {
                 bitget.fetchOrderBook('CHZ/USDT', 1),
                 bitget.fetchOrderBook('DYDX/USDT', 1),
                 bitget.fetchOrderBook('MANA/USDT', 1),
+                bitget.fetchOrderBook('ADA/USDT', 1),
+                bitget.fetchOrderBook('PEOPLE/USDT', 1),
+                bitget.fetchOrderBook('LPT/USDT', 1),
+                bitget.fetchOrderBook('BAT/USDT', 1),
+                bitget.fetchOrderBook('ATOM/USDT', 1),
+                bitget.fetchOrderBook('ENJ/USDT', 1),
+                bitget.fetchOrderBook('WOO/USDT', 1),
+                bitget.fetchOrderBook('SNX/USDT', 1),
+                bitget.fetchOrderBook('AVAX/USDT', 1),
+                bitget.fetchOrderBook('APE/USDT', 1),
+                bitget.fetchOrderBook('DOGE/USDT', 1),
+                bitget.fetchOrderBook('ZIL/USDT', 1),
+                bitget.fetchOrderBook('STORJ/USDT', 1),
+                bitget.fetchOrderBook('REN/USDT', 1),
+                bitget.fetchOrderBook('MASK/USDT', 1),
+                bitget.fetchOrderBook('ZRX/USDT', 1),
+                bitget.fetchOrderBook('ARPA/USDT', 1),
+                bitget.fetchOrderBook('NEAR/USDT', 1),
+                bitget.fetchOrderBook('GALA/USDT', 1),
 
             ])
             await new Promise(resolve => setTimeout(resolve, 3000))
@@ -459,12 +520,93 @@ const App = () => {
             }
         }
         Bitgetset();
+        async function Huobiset() {
+            const result = await Promise.all([
+                huobi.fetchOrderBook('BTC/USDT',    5),
+                huobi.fetchOrderBook('ETH/USDT',    5),
+                huobi.fetchOrderBook('UNI/USDT',    5),
+                huobi.fetchOrderBook('EGLD/USDT',   5),
+                huobi.fetchOrderBook('MATIC/USDT',  5),
+                huobi.fetchOrderBook('LTC/USDT',    5),
+                huobi.fetchOrderBook('QTUM/USDT',   5),
+                huobi.fetchOrderBook('NKN/USDT',    5),
+                huobi.fetchOrderBook('C98/USDT',    5),
+                huobi.fetchOrderBook('FIL/USDT',    5),
+                huobi.fetchOrderBook('GRT/USDT',    5),
+                huobi.fetchOrderBook('LRC/USDT',    5),
+                huobi.fetchOrderBook('GMT/USDT',    5),
+                huobi.fetchOrderBook('JASMY/USDT',  5),
+                huobi.fetchOrderBook('COTI/USDT',   5),
+                huobi.fetchOrderBook('KSM/USDT',    5),
+                huobi.fetchOrderBook('ICP/USDT',    5),
+                huobi.fetchOrderBook('XRP/USDT',    5),
+                huobi.fetchOrderBook('BNB/USDT',    5),
+                huobi.fetchOrderBook('SAND/USDT',   5),
+                huobi.fetchOrderBook('SUSHI/USDT',  5),
+                huobi.fetchOrderBook('LINK/USDT',   5),
+                huobi.fetchOrderBook('CHR/USDT',    5),
+                huobi.fetchOrderBook('MKR/USDT',    5),
+                huobi.fetchOrderBook('YFII/USDT',   5),
+                huobi.fetchOrderBook('BCH/USDT',    5),
+                huobi.fetchOrderBook('OP/USDT',     5),
+                huobi.fetchOrderBook('BAL/USDT',    5),
+                huobi.fetchOrderBook('YFI/USDT',    5),
+                huobi.fetchOrderBook('RSR/USDT',    5),
+                huobi.fetchOrderBook('DOT/USDT',    5),
+                huobi.fetchOrderBook('IMX/USDT',    5),
+                huobi.fetchOrderBook('SOL/USDT',    5),
+                huobi.fetchOrderBook('EOS/USDT',    5),
+                huobi.fetchOrderBook('SRM/USDT',    5),
+                huobi.fetchOrderBook('CELO/USDT',   5),
+                huobi.fetchOrderBook('AXS/USDT',    5),
+                huobi.fetchOrderBook('CHZ/USDT',    5),
+                huobi.fetchOrderBook('DYDX/USDT',   5),
+                huobi.fetchOrderBook('MANA/USDT',   5),
+                huobi.fetchOrderBook('ADA/USDT', 5),
+                huobi.fetchOrderBook('PEOPLE/USDT', 5),
+                huobi.fetchOrderBook('LPT/USDT', 5),
+                huobi.fetchOrderBook('BAT/USDT', 5),
+                huobi.fetchOrderBook('ATOM/USDT', 5),
+                huobi.fetchOrderBook('ENJ/USDT', 5),
+                huobi.fetchOrderBook('WOO/USDT', 5),
+                huobi.fetchOrderBook('SNX/USDT', 5),
+                huobi.fetchOrderBook('XTZ/USDT', 5),
+                huobi.fetchOrderBook('AVAX/USDT', 5),
+                huobi.fetchOrderBook('APE/USDT', 5),
+                huobi.fetchOrderBook('DOGE/USDT', 5),
+                huobi.fetchOrderBook('CVC/USDT', 5),
+                huobi.fetchOrderBook('ZIL/USDT', 5),
+                huobi.fetchOrderBook('STORJ/USDT', 5),
+                huobi.fetchOrderBook('REN/USDT', 5),
+                huobi.fetchOrderBook('MASK/USDT', 5),
+                huobi.fetchOrderBook('ZRX/USDT', 5),
+                huobi.fetchOrderBook('ARPA/USDT', 5),
+                huobi.fetchOrderBook('NEAR/USDT', 5),
+                huobi.fetchOrderBook('GALA/USDT', 5),
+            ])
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            if (result !== undefined) {
+                setResHuobi(result.map(el => {
+                    el.asks.pop();
+                    el.asks.pop();
+                    el.asks.pop();
+                    el.asks.pop();
+                    el.bids.pop();
+                    el.bids.pop();
+                    el.bids.pop();
+                    el.bids.pop();
+                    return {...el, exchange: 'Huobi'}
+                }));
+                setLoadingHuobi(false);
+            }
+        }
+        Huobiset();
     }, [])
 
     useEffect(() => {
-        if (!loadingBinance && !loadingFTX && !loadingMEXC && !loadingGateIo && !loadingOkx && !loadingBitget) {
+        if (!loadingBinance && !loadingFTX && !loadingMEXC && !loadingGateIo && !loadingOkx && !loadingBitget && !loadingHuobi) {
             
-            [...resBinance, ...resFTX, ...resMEXC, ...resGateIo, ...resOkx, ...resBitget].forEach(el => {
+            [...resBinance, ...resFTX, ...resMEXC, ...resGateIo, ...resOkx, ...resBitget, ...resHuobi].forEach(el => {
                 stats[el.symbol].bids.push({data: el.bids, exchange: el.exchange});
                 stats[el.symbol].asks.push({data: el.asks, exchange: el.exchange});
                 stats[el.symbol].asks.sort((a, b) => (a.data[0] < b.data[0]) ? 1:-1);
@@ -512,7 +654,7 @@ const App = () => {
             stats['MKR/USDT'].profit.push((((Object.values(stats['MKR/USDT'].asks[0].data[0])[0] - Object.values(stats['MKR/USDT'].bids[0].data[0])[0])/Object.values(stats['MKR/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['YFII/USDT'].profit.push((((Object.values(stats['YFII/USDT'].asks[0].data[0])[0] - Object.values(stats['YFII/USDT'].bids[0].data[0])[0])/Object.values(stats['YFII/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['IOTX/USDT'].profit.push((((Object.values(stats['IOTX/USDT'].asks[0].data[0])[0] - Object.values(stats['IOTX/USDT'].bids[0].data[0])[0])/Object.values(stats['IOTX/USDT'].bids[0].data[0])[0])*100).toFixed(3))
-            stats['BCH/USDT'].profit.push((((Object.values(stats['BCH/USDT'].asks[0].data[0])[0] - Object.values(stats['BCH/USDT'].bids[0].data[0])[0])/Object.values(stats['ICP/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['BCH/USDT'].profit.push((((Object.values(stats['BCH/USDT'].asks[0].data[0])[0] - Object.values(stats['BCH/USDT'].bids[0].data[0])[0])/Object.values(stats['BCH/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['OP/USDT'].profit.push((((Object.values(stats['OP/USDT'].asks[0].data[0])[0] - Object.values(stats['OP/USDT'].bids[0].data[0])[0])/Object.values(stats['OP/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['IOTA/USDT'].profit.push((((Object.values(stats['IOTA/USDT'].asks[0].data[0])[0] - Object.values(stats['IOTA/USDT'].bids[0].data[0])[0])/Object.values(stats['IOTA/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['BAL/USDT'].profit.push((((Object.values(stats['BAL/USDT'].asks[0].data[0])[0] - Object.values(stats['BAL/USDT'].bids[0].data[0])[0])/Object.values(stats['BAL/USDT'].bids[0].data[0])[0])*100).toFixed(3))
@@ -534,6 +676,27 @@ const App = () => {
             stats['DYDX/USDT'].profit.push((((Object.values(stats['DYDX/USDT'].asks[0].data[0])[0] - Object.values(stats['DYDX/USDT'].bids[0].data[0])[0])/Object.values(stats['DYDX/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['ZEN/USDT'].profit.push((((Object.values(stats['ZEN/USDT'].asks[0].data[0])[0] - Object.values(stats['ZEN/USDT'].bids[0].data[0])[0])/Object.values(stats['ZEN/USDT'].bids[0].data[0])[0])*100).toFixed(3))
             stats['MANA/USDT'].profit.push((((Object.values(stats['MANA/USDT'].asks[0].data[0])[0] - Object.values(stats['MANA/USDT'].bids[0].data[0])[0])/Object.values(stats['MANA/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['DASH/USDT'].profit.push((((Object.values(stats['DASH/USDT'].asks[0].data[0])[0] - Object.values(stats['DASH/USDT'].bids[0].data[0])[0])/Object.values(stats['DASH/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ADA/USDT'].profit.push((((Object.values(stats['ADA/USDT'].asks[0].data[0])[0] - Object.values(stats['ADA/USDT'].bids[0].data[0])[0])/Object.values(stats['ADA/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['PEOPLE/USDT'].profit.push((((Object.values(stats['PEOPLE/USDT'].asks[0].data[0])[0] - Object.values(stats['PEOPLE/USDT'].bids[0].data[0])[0])/Object.values(stats['PEOPLE/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['LPT/USDT'].profit.push((((Object.values(stats['LPT/USDT'].asks[0].data[0])[0] - Object.values(stats['LPT/USDT'].bids[0].data[0])[0])/Object.values(stats['LPT/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['BAT/USDT'].profit.push((((Object.values(stats['BAT/USDT'].asks[0].data[0])[0] - Object.values(stats['BAT/USDT'].bids[0].data[0])[0])/Object.values(stats['BAT/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ATOM/USDT'].profit.push((((Object.values(stats['ATOM/USDT'].asks[0].data[0])[0] - Object.values(stats['ATOM/USDT'].bids[0].data[0])[0])/Object.values(stats['ATOM/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ENJ/USDT'].profit.push((((Object.values(stats['ENJ/USDT'].asks[0].data[0])[0] - Object.values(stats['ENJ/USDT'].bids[0].data[0])[0])/Object.values(stats['ENJ/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['WOO/USDT'].profit.push((((Object.values(stats['WOO/USDT'].asks[0].data[0])[0] - Object.values(stats['WOO/USDT'].bids[0].data[0])[0])/Object.values(stats['WOO/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['SNX/USDT'].profit.push((((Object.values(stats['SNX/USDT'].asks[0].data[0])[0] - Object.values(stats['SNX/USDT'].bids[0].data[0])[0])/Object.values(stats['SNX/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['XTZ/USDT'].profit.push((((Object.values(stats['XTZ/USDT'].asks[0].data[0])[0] - Object.values(stats['XTZ/USDT'].bids[0].data[0])[0])/Object.values(stats['XTZ/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['AVAX/USDT'].profit.push((((Object.values(stats['AVAX/USDT'].asks[0].data[0])[0] - Object.values(stats['AVAX/USDT'].bids[0].data[0])[0])/Object.values(stats['AVAX/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['APE/USDT'].profit.push((((Object.values(stats['APE/USDT'].asks[0].data[0])[0] - Object.values(stats['APE/USDT'].bids[0].data[0])[0])/Object.values(stats['APE/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['DOGE/USDT'].profit.push((((Object.values(stats['DOGE/USDT'].asks[0].data[0])[0] - Object.values(stats['DOGE/USDT'].bids[0].data[0])[0])/Object.values(stats['DOGE/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['CVC/USDT'].profit.push((((Object.values(stats['CVC/USDT'].asks[0].data[0])[0] - Object.values(stats['CVC/USDT'].bids[0].data[0])[0])/Object.values(stats['CVC/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ZIL/USDT'].profit.push((((Object.values(stats['ZIL/USDT'].asks[0].data[0])[0] - Object.values(stats['ZIL/USDT'].bids[0].data[0])[0])/Object.values(stats['ZIL/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['STORJ/USDT'].profit.push((((Object.values(stats['STORJ/USDT'].asks[0].data[0])[0] - Object.values(stats['STORJ/USDT'].bids[0].data[0])[0])/Object.values(stats['STORJ/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['MASK/USDT'].profit.push((((Object.values(stats['REN/USDT'].asks[0].data[0])[0] - Object.values(stats['REN/USDT'].bids[0].data[0])[0])/Object.values(stats['REN/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ZRX/USDT'].profit.push((((Object.values(stats['ZRX/USDT'].asks[0].data[0])[0] - Object.values(stats['ZRX/USDT'].bids[0].data[0])[0])/Object.values(stats['ZRX/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['ARPA/USDT'].profit.push((((Object.values(stats['ARPA/USDT'].asks[0].data[0])[0] - Object.values(stats['ARPA/USDT'].bids[0].data[0])[0])/Object.values(stats['ARPA/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['NEAR/USDT'].profit.push((((Object.values(stats['NEAR/USDT'].asks[0].data[0])[0] - Object.values(stats['NEAR/USDT'].bids[0].data[0])[0])/Object.values(stats['NEAR/USDT'].bids[0].data[0])[0])*100).toFixed(3))
+            stats['GALA/USDT'].profit.push((((Object.values(stats['GALA/USDT'].asks[0].data[0])[0] - Object.values(stats['GALA/USDT'].bids[0].data[0])[0])/Object.values(stats['GALA/USDT'].bids[0].data[0])[0])*100).toFixed(3))
 
 
             setData(Object.values(stats))
